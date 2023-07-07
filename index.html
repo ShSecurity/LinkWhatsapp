@@ -1,0 +1,182 @@
+<!--Offensive Security Code-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generador de Enlaces de WhatsApp </title>
+  <style>
+    body {
+      background-color: #000;
+      color: #0f0;
+      font-family: "Courier New", Courier, monospace;
+      text-align: center;
+      margin-top: 100px;
+      animation: matrix-bg 10s infinite;
+    }
+
+    @keyframes matrix-bg {
+      0% {
+        background-color: #000;
+      }
+      50% {
+        background-color: rgb(12, 39, 12);
+      }
+      100% {
+        background-color: #000;
+      }
+    }
+
+    h1 {
+      color: #0f0;
+      font-size: 28px;
+      animation: glitch-text 2s infinite;
+    }
+
+    @keyframes glitch-text {
+      0% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      5% {
+        transform: translateX(-3px);
+        opacity: 0.8;
+      }
+      10% {
+        transform: translateX(3px);
+        opacity: 0.8;
+      }
+      15% {
+        transform: translateX(-3px);
+        opacity: 0.8;
+      }
+      20% {
+        transform: translateX(3px);
+        opacity: 1;
+      }
+      80% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      margin-bottom: 10px;
+      padding: 5px;
+      background-color: #222;
+      color: #0f0;
+      border: none;
+      border-bottom: 1px solid #0f0;
+      outline: none;
+    }
+
+    input[type="text"]::placeholder {
+      color: #0f0;
+      opacity: 0.5;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #0f0;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #f0f;
+      color: #000;
+    }
+
+    #linkResultado {
+      margin-bottom: 20px;
+      animation: glitch-text 2s infinite;
+    }
+
+    #botonCopiar {
+      padding: 10px 20px;
+      background-color: #0f0;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.3s;
+    }
+
+    #botonCopiar:hover {
+      background-color: #f0f;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>Generador de Enlaces de WhatsApp - Estilo Hacker Peruano</h1>
+  <form id="formularioWhatsApp">
+    <label for="numeroTelefono">Número de WhatsApp:</label>
+    <input type="text" id="numeroTelefono" required placeholder="Ingresa el número...">
+    <br>
+    <label for="mensaje">Mensaje (opcional):</label>
+    <input type="text" id="mensaje" placeholder="Ingresa un mensaje...">
+    <br>
+    <button type="submit">Generar enlace</button>
+  </form>
+  <div id="linkResultado"></div>
+
+  <script>
+    const formularioWhatsApp = document.getElementById("formularioWhatsApp");
+    const numeroTelefonoInput = document.getElementById("numeroTelefono");
+    const mensajeInput = document.getElementById("mensaje");
+    const linkResultado = document.getElementById("linkResultado");
+
+    formularioWhatsApp.addEventListener("submit", generarEnlaceWhatsApp);
+
+    function generarEnlaceWhatsApp(e) {
+      e.preventDefault();
+
+      const numeroTelefono = numeroTelefonoInput.value;
+      const mensaje = mensajeInput.value;
+
+      let enlace = `https://wa.me/${numeroTelefono}`;
+
+      if (mensaje !== "") {
+        const mensajeCodificado = encodeURIComponent(mensaje);
+        enlace += `?text=${mensajeCodificado}`;
+      }
+
+      const enlaceElemento = document.createElement("a");
+      enlaceElemento.href = enlace;
+      enlaceElemento.textContent = enlace;
+
+      linkResultado.innerHTML = "";
+      linkResultado.appendChild(enlaceElemento);
+
+      const botonCopiar = document.createElement("button");
+      botonCopiar.id = "botonCopiar";
+      botonCopiar.textContent = "Copiar enlace";
+      botonCopiar.addEventListener("click", copiarEnlace);
+
+      linkResultado.appendChild(botonCopiar);
+    }
+
+    function copiarEnlace() {
+      const enlaceElemento = document.querySelector("#linkResultado a");
+      const tempInput = document.createElement("input");
+      tempInput.value = enlaceElemento.href;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+
+      alert("¡Enlace copiado al portapapeles!");
+    }
+  </script>
+</body>
+</html>
